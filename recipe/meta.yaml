@@ -67,7 +67,8 @@ test:
     - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ pc }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
     - test -f $PREFIX/lib/girepository-1.0/GdkPixbuf-2.0.typelib  # [unix]
     - if not exist %PREFIX%\\Library\\lib\\girepository-1.0\\GdkPixbuf-2.0.typelib exit 1   # [win]
-
+    # manually inspect the pc file on windows
+    - type %PREIFX%\\Library\\lib\\pkgconfig/{{ pc }}.pc  # [win]
 
 about:
   home: https://developer.gnome.org/gdk-pixbuf/
