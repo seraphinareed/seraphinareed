@@ -36,12 +36,10 @@ requirements:
     - jpeg
     - libtiff
     - libpng
-    - zlib
   run:
     - jpeg
     - libtiff
     - libpng
-    - zlib
 
 test:
   requires:
