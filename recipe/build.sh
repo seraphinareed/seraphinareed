@@ -21,20 +21,11 @@ meson_options_common=(
     -Drelocatable=true
     -Dintrospection=enabled
     -Dgtk_doc=false
+    -Dman=false
     --wrap-mode=nofallback
 )
 meson_options_build=("${meson_options_common[@]}")
 meson_options_host=("${meson_options_common[@]}")
-
-if [[ "$target_platform" == osx-* ]] ; then
-    # Disable manpages since the macOS xsltproc doesn't want to load
-    # docbook.xsl remotely in --nonet mode.
-    meson_options_host+=(-Dman=false)
-fi
-
-if [[ "$build_platform" == osx-* ]] ; then
-    meson_options_build+=(-Dman=false)
-fi
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
