@@ -15,18 +15,9 @@ jpeg:
 libpng:
 - '1.6'
 libtiff:
-- '4'
+- '4.5'
 macos_machine:
 - x86_64-apple-darwin13.4.0
-pin_run_as_build:
-  jpeg:
-    max_pin: x
-  libpng:
-    max_pin: x.x
-  libtiff:
-    max_pin: x
-  zlib:
-    max_pin: x.x
 target_platform:
 - osx-64
 zlib:
