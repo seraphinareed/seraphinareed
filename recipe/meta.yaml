@@ -13,8 +13,14 @@ source:
   url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
 
 build:
-  number: 1
-  skip: true  # [win and vc<14]
+  number: 2
+  ignore_run_exports:
+    # while zlib isn't linked to at build time. it does appear
+    # in the pkgconfig file. Without this build system
+    # tries to include zlib from the build environment
+    # instead of the host environment
+    # https://github.com/conda-forge/gdk-pixbuf-feedstock/pull/40
+    - zlib
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
@@ -36,6 +42,7 @@ requirements:
     - libjpeg-turbo
     - libtiff
     - libpng
+    - zlib
   run:
     - libjpeg-turbo
     - libtiff
@@ -60,7 +67,6 @@ test:
     - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ pc }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
     - test -f $PREFIX/lib/girepository-1.0/GdkPixbuf-2.0.typelib  # [unix]
     - if not exist %PREFIX%\\Library\\lib\\girepository-1.0\\GdkPixbuf-2.0.typelib exit 1   # [win]
-
 
 about:
   home: https://developer.gnome.org/gdk-pixbuf/
