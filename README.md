@@ -1,11 +1,11 @@
-About gdk-pixbuf
-================
+About gdk-pixbuf-feedstock
+==========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gdk-pixbuf-feedstock/blob/main/LICENSE.txt)
 
 Home: https://developer.gnome.org/gdk-pixbuf/
 
 Package license: LGPL-2.1-or-later
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gdk-pixbuf-feedstock/blob/main/LICENSE.txt)
 
 Summary: GdkPixbuf is a library for image loading and manipulation.
 
