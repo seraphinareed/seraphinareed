@@ -11,7 +11,7 @@ libjpeg_turbo:
 libpng:
 - '1.6'
 libtiff:
-- '4.5'
+- '4.6'
 target_platform:
 - win-64
 zlib:

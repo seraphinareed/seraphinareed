@@ -3,7 +3,7 @@ BUILD:
 c_compiler:
 - gcc
 c_compiler_version:
-- '11'
+- '12'
 cdt_arch:
 - aarch64
 cdt_name:
@@ -21,7 +21,7 @@ libjpeg_turbo:
 libpng:
 - '1.6'
 libtiff:
-- '4.5'
+- '4.6'
 target_platform:
 - linux-aarch64
 zlib:
