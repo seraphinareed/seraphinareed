@@ -20,6 +20,7 @@ meson_options_common=(
     -Dlibdir=lib
     -Drelocatable=true
     -Dintrospection=enabled
+    -Dgtk_doc=false
     --wrap-mode=nofallback
 )
 meson_options_build=("${meson_options_common[@]}")
