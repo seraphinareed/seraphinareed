@@ -24,3 +24,5 @@ libtiff:
 - '4.5'
 target_platform:
 - linux-aarch64
+zlib:
+- '1.2'
