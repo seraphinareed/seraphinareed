@@ -2,19 +2,18 @@
 {% set pc = "gdk-pixbuf-2.0" %}
 {% set name = "gdk-pixbuf" %}
 {% set version = "2.42.10" %}
-{% set sha256 = "ee9b6c75d13ba096907a2e3c6b27b61bcd17f5c7ebeab5a5b439d2f2e39fe44b" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  sha256: {{ sha256 }}
   url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
+  sha256: ee9b6c75d13ba096907a2e3c6b27b61bcd17f5c7ebeab5a5b439d2f2e39fe44b
 
 build:
-  number: 4
-  ignore_run_exports:
+  number: 5
+  ignore_run_exports_from:
     # while zlib isn't linked to at build time. it does appear
     # in the pkgconfig file. Without this build system
     # tries to include zlib from the build environment
