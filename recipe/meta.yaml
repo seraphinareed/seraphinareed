@@ -13,8 +13,13 @@ source:
   url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
 
 build:
-  number: 1
-  skip: true  # [win and vc<14]
+  number: 2
+  ignore_run_exports:
+    # while zlib isn't linked to at build time. it does appear
+    # in the pkgconfig file. Without this build system
+    # tries to include zlib from the build environment
+    # instead of the host environment
+    - zlib
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
@@ -36,6 +41,7 @@ requirements:
     - libjpeg-turbo
     - libtiff
     - libpng
+    - zlib
   run:
     - libjpeg-turbo
     - libtiff
