@@ -19,6 +19,7 @@ build:
     # in the pkgconfig file. Without this build system
     # tries to include zlib from the build environment
     # instead of the host environment
+    # https://github.com/conda-forge/gdk-pixbuf-feedstock/pull/40
     - zlib
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
