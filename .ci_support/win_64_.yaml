@@ -6,8 +6,8 @@ channel_targets:
 - conda-forge main
 glib:
 - '2'
-jpeg:
-- '9'
+libjpeg_turbo:
+- 2.1.5
 libpng:
 - '1.6'
 libtiff:
@@ -16,5 +16,3 @@ target_platform:
 - win-64
 vc:
 - '14'
-zlib:
-- '1.2'
