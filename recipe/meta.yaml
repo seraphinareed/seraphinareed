@@ -13,7 +13,7 @@ source:
   url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
 
 build:
-  number: 3
+  number: 4
   ignore_run_exports:
     # while zlib isn't linked to at build time. it does appear
     # in the pkgconfig file. Without this build system
