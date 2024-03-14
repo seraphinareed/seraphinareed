@@ -15,7 +15,7 @@ source:
       - 0001-changed-perl-script-to-use-env.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win]
 
 requirements:
@@ -27,13 +27,13 @@ requirements:
     - automake
     - libtool
     - pkg-config
+    - perl
     - glib >=2.51
     - gobject-introspection
     - libffi
     - libtiff
     - libpng
     - jpeg
-    - perl
     - gettext  # [osx]
   run:
     - libgcc  # [linux]
