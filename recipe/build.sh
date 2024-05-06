@@ -2,16 +2,18 @@
 
 set -e -o pipefail
 
-ln -s $PREFIX/lib $PREFIX/lib64
-
-export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig:$PREFIX/share/pkgconfig:/usr/lib64/pkgconfig:/usr/share/pkgconfig"
-export ACLOCAL_FLAGS="-I$PREFIX/share/aclocal"
-
-if  [[ "$OSTYPE" == "darwin"* ]]; then
-  ./configure  --prefix=$PREFIX --enable-introspection=yes CPPFLAGS="-I$PREFIX/include" LDFLAGS="-L$PREFIX/lib -Wl,-rpath ${PREFIX}/lib" 
-else
-  ./configure  --prefix=$PREFIX --enable-introspection=yes CPPFLAGS="-I$PREFIX/include" LDFLAGS="-L$PREFIX/lib"
+if [[ "$(uname)" = Darwin ]] ; then
+    export LDFLAGS="$LDFLAGS -Wl,-rpath,$PREFIX/lib"
 fi
 
-make
+./configure \
+    --prefix=$PREFIX \
+    --libdir=$PREFIX/lib \
+    --enable-introspection
+
+make V=1 -j$CPU_COUNT
 make install
+
+cd $PREFIX
+rm -rf share/gtk-doc
+find . -name '*.la' -delete

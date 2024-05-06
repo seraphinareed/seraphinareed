@@ -1,0 +1,11 @@
+--- a/configure
++++ b/configure
+@@ -19315,7 +19315,7 @@
+ fi
+ 
+ 
+-if test x$gio_can_sniff = x; then
++if false; then
+   # Will not run on win32, so require shared-mime-info
+ 
+ pkg_failed=no
