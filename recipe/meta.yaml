@@ -16,7 +16,7 @@ source:
       - no-shared-mime-info.patch
 
 build:
-  number: 1002
+  number: 1003
   skip: True  # [win]
 
 requirements:
@@ -27,6 +27,7 @@ requirements:
     - gettext  # [osx]
     - glib
     - gobject-introspection
+    - make
     - jpeg
     - libffi
     - libtiff
