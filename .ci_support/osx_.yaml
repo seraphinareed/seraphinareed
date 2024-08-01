@@ -1,13 +1,13 @@
-build_number_decrement:
-- '1000'
+MACOSX_DEPLOYMENT_TARGET:
+- '10.9'
 c_compiler:
-- toolchain_c
+- clang
+c_compiler_version:
+- '4'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
-docker_image:
-- condaforge/linux-anvil
 glib:
 - '2.58'
 jpeg:
@@ -18,9 +18,11 @@ libpng:
 - 1.6.35
 libtiff:
 - 4.0.9
+macos_machine:
+- x86_64-apple-darwin13.4.0
+macos_min_version:
+- '10.9'
 pin_run_as_build:
-  glib:
-    max_pin: x.x
   jpeg:
     max_pin: x
   libffi:
@@ -29,9 +31,3 @@ pin_run_as_build:
     max_pin: x.x
   libtiff:
     max_pin: x
-zip_keys:
-- - c_compiler
-  - channel_sources
-  - channel_targets
-  - docker_image
-  - build_number_decrement
