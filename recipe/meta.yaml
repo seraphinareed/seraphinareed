@@ -16,7 +16,7 @@ source:
       - no-shared-mime-info.patch
 
 build:
-  number: 1004
+  number: 1005
   skip: True  # [win]
 
 requirements:
