@@ -18,7 +18,7 @@ build:
   skip: True  # [win]
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
-    - {{ pin_subpackage('afterimage', max_pin='x') }}
+    - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
 
 requirements:
   build:
