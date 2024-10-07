@@ -1,5 +1,4 @@
 {% set name = "gdk-pixbuf" %}
-{% set version_maj = "2.36" %}
 {% set version = "2.36.12" %}
 {% set sha256 = "fff85cf48223ab60e3c3c8318e2087131b590fd6f1737e42cb3759a3b427a334" %}
 
@@ -8,38 +7,41 @@ package:
     version: {{ version }}
 
 source:
-    fn: {{ name }}-{{ version }}.tar.xz
     sha256: {{ sha256 }}
-    url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ version_maj }}/{{ name }}-{{ version }}.tar.xz
+    url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
     patches:
       - 0001-changed-perl-script-to-use-env.patch
       - no-shared-mime-info.patch
 
 build:
-  number: 1004
+  number: 1005
   skip: True  # [win]
+  run_exports:
+    # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
+    - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
 
 requirements:
   build:
     - pkg-config
     - {{ compiler('c') }}
+    - make
   host:
     - gettext  # [osx]
     - glib
     - gobject-introspection
     - make
     - jpeg
-    - libffi
     - libtiff
     - libpng
+    - zlib
   run:
     - gettext  # [osx]
     - glib
     - gobject-introspection
     - jpeg
-    - libffi
     - libtiff
     - libpng
+    - zlib
 
 test:
   commands:
