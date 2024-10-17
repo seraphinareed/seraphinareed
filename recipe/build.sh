@@ -9,13 +9,20 @@ fi
 # Needed for jpeg on Linux/GCC7:
 export CPPFLAGS="$CPPFLAGS -I$PREFIX/include"
 
-./configure \
-    --prefix=$PREFIX \
-    --libdir=$PREFIX/lib \
-    --enable-introspection
-
-make V=1 -j$CPU_COUNT
-make install
+mkdir forgebuild
+cd forgebuild
+meson \
+    --buildtype=release \
+    --prefix="$PREFIX" \
+    --backend=ninja \
+    -Dlibdir=lib \
+    -Ddocs=false \
+    -Dgir=true \
+    -Drelocatable=true \
+    -Dinstalled_tests=false \
+    ..
+ninja -j$CPU_COUNT -v
+ninja install
 
 cd $PREFIX
 rm -rf share/gtk-doc
