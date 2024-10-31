@@ -11,6 +11,7 @@ source:
     url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
     patches:
       - 0001-changed-perl-script-to-use-env.patch
+      - meson-rpaths.patch
 
 build:
   number: 0
