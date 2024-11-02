@@ -15,11 +15,12 @@ meson \
     --buildtype=release \
     --prefix="$PREFIX" \
     --backend=ninja \
-    -Dlibdir=lib \
     -Ddocs=false \
     -Dgir=true \
-    -Drelocatable=true \
+    -Dgio_sniffing=false \
     -Dinstalled_tests=false \
+    -Dlibdir=lib \
+    -Drelocatable=true \
     ..
 ninja -j$CPU_COUNT -v
 ninja install
