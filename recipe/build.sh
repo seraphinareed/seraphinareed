@@ -9,19 +9,26 @@ fi
 # Needed for jpeg on Linux/GCC7:
 export CPPFLAGS="$CPPFLAGS -I$PREFIX/include"
 
+meson_options=(
+    --buildtype=release
+    --prefix="$PREFIX"
+    --backend=ninja
+    -Ddocs=false
+    -Dgir=true
+    -Dgio_sniffing=false
+    -Dinstalled_tests=false
+    -Dlibdir=lib
+    -Drelocatable=true
+)
+
+if [[ $(uname) == Darwin ]] ; then
+    meson_options+=(-Dx11=false)
+fi
+
 mkdir forgebuild
 cd forgebuild
-meson \
-    --buildtype=release \
-    --prefix="$PREFIX" \
-    --backend=ninja \
-    -Ddocs=false \
-    -Dgir=true \
-    -Dgio_sniffing=false \
-    -Dinstalled_tests=false \
-    -Dlibdir=lib \
-    -Drelocatable=true \
-    ..
+
+meson "${meson_options[@]}" ..
 ninja -j$CPU_COUNT -v
 ninja install
 
