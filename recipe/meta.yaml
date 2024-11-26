@@ -47,7 +47,7 @@ requirements:
 test:
   commands:
     - gdk-pixbuf-csource --version
-    - gdk-pixbuf-query-loaders --help
+    - gdk-pixbuf-query-loaders
     - gdk-pixbuf-pixdata --help
 
 about:
