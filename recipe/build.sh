@@ -22,7 +22,12 @@ meson_options=(
 )
 
 if [[ $(uname) == Darwin ]] ; then
-    meson_options+=(-Dx11=false)
+    # Disable X11 since our default Mac environment doesn't provide it (and
+    # apparently the build scripts assume that it will be there).
+    #
+    # Disable manpages since the macOS xsltproc doesn't want to load
+    # docbook.xsl remotely in --nonet mode.
+    meson_options+=(-Dx11=false -Dman=false)
 fi
 
 mkdir forgebuild
