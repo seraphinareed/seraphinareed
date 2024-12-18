@@ -3,8 +3,6 @@
 set -e -o pipefail
 
 if [[ "$(uname)" = Darwin ]] ; then
-    export LDFLAGS="$LDFLAGS -Wl,-rpath,$PREFIX/lib"
-
     # The -dead_strip_dylibs option breaks g-ir-scanner in this package: the
     # scanner links a test executable to find paths to dylibs, but with this
     # option the linker strips them out. The resulting error message is
