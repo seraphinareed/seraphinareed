@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e -o pipefail
+set -xeo pipefail
 
 if [[ "$(uname)" = Darwin ]] ; then
     # The -dead_strip_dylibs option breaks g-ir-scanner in this package: the
