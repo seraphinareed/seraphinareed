@@ -1,6 +1,6 @@
 {% set name = "gdk-pixbuf" %}
-{% set version = "2.36.12" %}
-{% set sha256 = "fff85cf48223ab60e3c3c8318e2087131b590fd6f1737e42cb3759a3b427a334" %}
+{% set version = "2.38.2" %}
+{% set sha256 = "73fa651ec0d89d73dd3070b129ce2203a66171dfc0bd2caa3570a9c93d2d0781" %}
 
 package:
     name: {{ name|lower }}
@@ -11,10 +11,11 @@ source:
     url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
     patches:
       - 0001-changed-perl-script-to-use-env.patch
-      - no-shared-mime-info.patch
+      - meson-rpaths-common.patch
+      - meson-rpaths-non-macos.patch  # [not osx]
 
 build:
-  number: 1005
+  number: 0
   skip: True  # [win]
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
@@ -24,7 +25,8 @@ requirements:
   build:
     - pkg-config
     - {{ compiler('c') }}
-    - make
+    - meson
+    - ninja
   host:
     - gettext  # [osx]
     - glib
@@ -46,7 +48,7 @@ requirements:
 test:
   commands:
     - gdk-pixbuf-csource --version
-    - gdk-pixbuf-query-loaders --help
+    - gdk-pixbuf-query-loaders
     - gdk-pixbuf-pixdata --help
 
 about:
