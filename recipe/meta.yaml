@@ -15,8 +15,8 @@ source:
       - meson-rpaths-non-macos.patch  # [not osx]
 
 build:
-  number: 0
-  skip: True  # [win]
+  number: 1
+  skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
     - {{ pin_subpackage('gdk-pixbuf', max_pin='x') }}
@@ -31,7 +31,7 @@ requirements:
     - gettext  # [osx]
     - glib
     - gobject-introspection
-    - make
+    - make  # [not win]
     - jpeg
     - libtiff
     - libpng
