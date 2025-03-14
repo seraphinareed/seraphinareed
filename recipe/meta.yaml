@@ -15,7 +15,7 @@ source:
       - meson-rpaths-non-macos.patch  # [not osx]
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
@@ -46,10 +46,22 @@ requirements:
     - zlib
 
 test:
+  requires:
+    - pkg-config
   commands:
     - gdk-pixbuf-csource --version
     - gdk-pixbuf-query-loaders
     - gdk-pixbuf-pixdata --help
+
+    # verify that libs get installed and can be located through pkg-config
+    {% set pc = "gdk-pixbuf-2.0" %}
+    {% set lib = "gdk_pixbuf-2.0" %}
+    - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}  # [unix]
+    - test -f `pkg-config --variable=libdir --dont-define-prefix {{ pc }}`/lib{{ lib }}${SHLIB_EXT}  # [unix]
+    - if not exist %PREFIX%\\Library\\bin\\{{ lib }}-0.dll exit 1  # [win]
+    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=exec_prefix --dont-define-prefix {{ pc }}`) do if not exist "%%a/bin/{{ lib }}-0.dll" exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\lib\\gdk_pixbuf-2.0.lib exit 1  # [win]
+    - for /f "usebackq tokens=*" %%a in (`pkg-config --variable=libdir --dont-define-prefix {{ pc }}`) do if not exist "%%a/{{ lib }}.lib" exit 1  # [win]
 
 about:
   home: https://developer.gnome.org/gdk-pixbuf/
