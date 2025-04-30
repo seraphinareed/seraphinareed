@@ -25,7 +25,8 @@ requirements:
   build:
     - pkg-config
     - {{ compiler('c') }}
-    - meson
+    # See https://github.com/conda-forge/atk-feedstock/pull/14#issuecomment-610061908
+    - meson 0.53.2
     - ninja
   host:
     - gettext  # [osx]
