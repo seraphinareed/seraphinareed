@@ -16,6 +16,6 @@ if [ -z "$gdk_pixbuf_cache_file" ] ; then
        echo >&2 "error: no such gdk-pixbuf binary directory $PREFIX/lib/gdk-pixbuf-2.0/*"
        exit 1
     fi
-    gdk_pixbuf_cache_file=$bindir/loaders.cache
+    gdk_pixbuf_cache_file="$bindir/loaders.cache"
 fi
-$PREFIX/bin/gdk-pixbuf-query-loaders >$gdk_pixbuf_cache_file
+"$PREFIX/bin/gdk-pixbuf-query-loaders" >$gdk_pixbuf_cache_file
