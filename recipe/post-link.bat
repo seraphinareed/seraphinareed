@@ -4,5 +4,5 @@
 :: post-link and post-unlink scripts that just execute this one, which will be
 :: available as `%PREFIX%\Scripts\.gdk-pixbuf-post-link.bat`.
 
-%PREFIX%\Library\bin\gdk-pixbuf-query-loaders.exe --update-cache >> "%PREFIX%/.messages.txt" 2>&1
+"%PREFIX%\Library\bin\gdk-pixbuf-query-loaders.exe" --update-cache >> "%PREFIX%/.messages.txt" 2>&1
 if errorlevel 1 exit 1
