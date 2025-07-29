@@ -18,9 +18,12 @@ if [ -z "$gdk_pixbuf_cache_file" ] ; then
     fi
     gdk_pixbuf_cache_file="$bindir/loaders.cache"
 fi
+
+# When cross-compiling, or installing for a different platform, the gdk-pixbuf-query-loaders binary can't be executed
+# https://github.com/conda-forge/gdk-pixbuf-feedstock/issues/23
 "$PREFIX/bin/gdk-pixbuf-query-loaders" >"$gdk_pixbuf_cache_file" 2>>"${PREFIX}/.messages.txt" || \
 (
-    echo "ERROR: Failed to update gdk-pixbuf's cache, some plugins may be be found."
+    echo "ERROR: Failed to update gdk-pixbuf's cache, some plugins may not be found."
     echo "To fix this, activate the environment and run:"
     echo "    gdk-pixbuf-query-loaders >\"$gdk_pixbuf_cache_file\""
 ) >> "${PREFIX}/.messages.txt"
