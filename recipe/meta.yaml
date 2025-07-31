@@ -15,7 +15,7 @@ source:
       - meson-rpaths-non-macos.patch  # [not osx]
 
 build:
-  number: 4
+  number: 5
   skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
@@ -28,7 +28,11 @@ requirements:
     # See https://github.com/conda-forge/atk-feedstock/pull/14#issuecomment-610061908
     - meson 0.53.2
     - ninja
+    # Ensure the same Python version is used in build and host as meson imports gobject-introspection
+    # Maybe gobject-introspection belongs in build?
+    - python =3.8
   host:
+    - python =3.8
     - gettext  # [osx]
     - glib
     - gobject-introspection
