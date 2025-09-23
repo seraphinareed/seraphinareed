@@ -11,7 +11,7 @@ channel_targets:
 docker_image:
 - condaforge/linux-anvil-ppc64le
 glib:
-- '2.58'
+- 2.64.6
 jpeg:
 - '9'
 libpng:
