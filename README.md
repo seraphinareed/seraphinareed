@@ -177,4 +177,5 @@ Feedstock Maintainers
 
 * [@notestaff](https://github.com/notestaff/)
 * [@pkgw](https://github.com/pkgw/)
+* [@tschoonj](https://github.com/tschoonj/)
 
