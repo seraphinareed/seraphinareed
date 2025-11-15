@@ -38,6 +38,17 @@ fi
 mkdir forgebuild
 cd forgebuild
 
+# This bit essentially copy/pasted from glib-feedstock:
+if [[ "$target_platform" == "osx-arm64" && "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
+    echo "[host_machine]" > cross_file.txt
+    echo "system = 'darwin'" >> cross_file.txt
+    echo "cpu_family = 'aarch64'" >> cross_file.txt
+    echo "cpu = 'arm64'" >> cross_file.txt
+    echo "endian = 'little'" >> cross_file.txt
+    meson_options+=(--cross-file cross_file.txt)
+    export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
+fi
+
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig:$BUILD_PREFIX/lib/pkgconfig
 
 meson "${meson_options[@]}" ..
