@@ -15,6 +15,7 @@ set ^"MESON_OPTIONS=^
   -D docs=false ^
   -D installed_tests=false ^
   -D man=false ^
+  -D introspection=enabled ^
   -D relocatable=true ^
   -D x11=false ^
  ^"

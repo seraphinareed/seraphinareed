@@ -15,12 +15,11 @@ meson_options=(
     --buildtype=release
     --backend=ninja
     -Ddocs=false
-    -Dgir=true
     -Dgio_sniffing=false
     -Dinstalled_tests=false
     -Dlibdir=lib
     -Drelocatable=true
-    -Dintrospection=true
+    -Dintrospection=enabled
 )
 
 
