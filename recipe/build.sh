@@ -33,6 +33,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     export NM=($CC_FOR_BUILD -print-prog-name=nm)
     export LDFLAGS=${LDFLAGS//$PREFIX/$BUILD_PREFIX}
     export PKG_CONFIG_PATH=${BUILD_PREFIX}/lib/pkgconfig
+    unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
 
     # Unset them as we're ok with builds that are either slow or non-portable
     unset CFLAGS
