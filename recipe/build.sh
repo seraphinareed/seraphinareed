@@ -11,7 +11,7 @@ if [[ "$target_platform" = osx-* ]] ; then
     export LDFLAGS_LD="$(echo $LDFLAGS_LD |sed -e "s/-dead_strip_dylibs//g")"
 fi
 
-meson_options=(
+meson_options_common=(
     --buildtype=release
     --backend=ninja
     -Ddocs=false
@@ -21,6 +21,22 @@ meson_options=(
     -Drelocatable=true
     -Dintrospection=enabled
 )
+meson_options_build = meson_options_common
+meson_options_host = meson_options_common
+
+if [[ "$target_platform" == osx-* ]] ; then
+    # Disable X11 since our default Mac environment doesn't provide it (and
+    # apparently the build scripts assume that it will be there).
+    #
+    # Disable manpages since the macOS xsltproc doesn't want to load
+    # docbook.xsl remotely in --nonet mode.
+    meson_options_host+=(-Dx11=false -Dman=false)
+fi
+
+if [[ "$build_platform" == osx-* ]] ; then
+    meson_options_build+=(-Dx11=false -Dman=false)
+fi
+
 
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
@@ -39,7 +55,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     unset CFLAGS
     unset CPPFLAGS
 
-    meson "${meson_options[@]}" --prefix=$BUILD_PREFIX ..
+    meson "${meson_options_build[@]}" --prefix=$BUILD_PREFIX ..
     # This script would generate the functions.txt and dump.xml and save them
     # This is loaded in the native build. We assume that the functions exported
     # by glib are the same for the native and cross builds
@@ -54,16 +70,6 @@ fi
 mkdir forgebuild
 cd forgebuild
 
-if [[ "$target_platform" == osx-* ]] ; then
-    # Disable X11 since our default Mac environment doesn't provide it (and
-    # apparently the build scripts assume that it will be there).
-    #
-    # Disable manpages since the macOS xsltproc doesn't want to load
-    # docbook.xsl remotely in --nonet mode.
-    meson_options+=(-Dx11=false -Dman=false)
-fi
-
-
 # This bit essentially copy/pasted from glib-feedstock:
 if [[ "$target_platform" == "osx-arm64" && "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
     export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
@@ -71,7 +77,7 @@ fi
 
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig:$BUILD_PREFIX/lib/pkgconfig
 
-meson "${meson_options[@]}" $MESON_ARGS --prefix=$PREFIX ..
+meson "${meson_options_host[@]}" $MESON_ARGS --prefix=$PREFIX ..
 ninja -j$CPU_COUNT -v
 ninja install
 
