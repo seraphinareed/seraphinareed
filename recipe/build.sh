@@ -21,8 +21,8 @@ meson_options_common=(
     -Drelocatable=true
     -Dintrospection=enabled
 )
-meson_options_build = meson_options_common
-meson_options_host = meson_options_common
+meson_options_build=meson_options_common
+meson_options_host=meson_options_common
 
 if [[ "$target_platform" == osx-* ]] ; then
     # Disable X11 since our default Mac environment doesn't provide it (and
