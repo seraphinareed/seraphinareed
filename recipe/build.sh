@@ -54,7 +54,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     # Unset them as we're ok with builds that are either slow or non-portable
     unset CFLAGS
     unset CPPFLAGS
-
+    echo "_CONDA_PYTHON_SYSCONFIGDATA_NAME: ${_CONDA_PYTHON_SYSCONFIGDATA_NAME}"
     meson "${meson_options_build[@]}" --prefix=$BUILD_PREFIX ..
     # This script would generate the functions.txt and dump.xml and save them
     # This is loaded in the native build. We assume that the functions exported
