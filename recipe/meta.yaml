@@ -30,7 +30,6 @@ requirements:
     - libpng    # [build_platform != target_platform]
     - zlib      # [build_platform != target_platform]
   host:
-    - gobject-introspection
     - glib
     - jpeg
     - libtiff

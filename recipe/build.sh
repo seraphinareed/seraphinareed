@@ -63,10 +63,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     ninja -j$CPU_COUNT -v
     ninja install
     popd
-    rm -rf $PREFIX/bin/g-ir-scanner $PREFIX/bin/g-ir-compiler
-    ln -s $BUILD_PREFIX/bin/g-ir-scanner $PREFIX/bin/g-ir-scanner
-    ln -s $BUILD_PREFIX/bin/g-ir-compiler $PREFIX/bin/g-ir-compiler
-    rsync -ahvpiI $BUILD_PREFIX/lib/gobject-introspection/ $PREFIX/lib/gobject-introspection/
   )
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
 fi
@@ -81,7 +77,7 @@ fi
 
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig:$BUILD_PREFIX/lib/pkgconfig
 
-meson "${meson_options_host[@]}" $MESON_ARGS --prefix=$PREFIX ..
+meson "${meson_options_host[@]}" $MESON_ARGS --prefix=$PREFIX .. || (cat meson-logs/meson-log.txt; false)
 ninja -j$CPU_COUNT -v
 ninja install
 
