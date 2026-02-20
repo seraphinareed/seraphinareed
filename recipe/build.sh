@@ -70,12 +70,9 @@ fi
 mkdir forgebuild
 cd forgebuild
 
-# This bit essentially copy/pasted from glib-feedstock:
-if [[ "$target_platform" == "osx-arm64" && "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
-    export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
-fi
-
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig:$BUILD_PREFIX/lib/pkgconfig
+export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
+export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig
 
 meson "${meson_options_host[@]}" $MESON_ARGS --prefix=$PREFIX .. || (cat meson-logs/meson-log.txt; false)
 ninja -j$CPU_COUNT -v
