@@ -70,9 +70,12 @@ fi
 mkdir forgebuild
 cd forgebuild
 
-export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
-export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig
+export PKG_CONFIG="$BUILD_PREFIX/bin/pkg-config"
+export PKG_CONFIG_PATH_FOR_BUILD="$BUILD_PREFIX/lib/pkgconfig"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig"
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != 1 ]]; then
+  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig"
+fi
 
 meson "${meson_options_host[@]}" $MESON_ARGS --prefix=$PREFIX .. || (cat meson-logs/meson-log.txt; false)
 ninja -j$CPU_COUNT -v
