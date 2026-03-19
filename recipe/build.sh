@@ -2,7 +2,7 @@
 
 set -xeo pipefail
 
-if [[ "$(uname)" = Darwin ]] ; then
+if [[ "$target_platform" = osx-* ]] ; then
     # The -dead_strip_dylibs option breaks g-ir-scanner in this package: the
     # scanner links a test executable to find paths to dylibs, but with this
     # option the linker strips them out. The resulting error message is
@@ -11,47 +11,73 @@ if [[ "$(uname)" = Darwin ]] ; then
     export LDFLAGS_LD="$(echo $LDFLAGS_LD |sed -e "s/-dead_strip_dylibs//g")"
 fi
 
-# Needed for jpeg on Linux/GCC7:
-export CPPFLAGS="$CPPFLAGS -I$PREFIX/include"
-
-meson_options=(
+meson_options_common=(
     --buildtype=release
-    --prefix="$PREFIX"
     --backend=ninja
     -Ddocs=false
-    -Dgir=true
     -Dgio_sniffing=false
     -Dinstalled_tests=false
     -Dlibdir=lib
     -Drelocatable=true
+    -Dintrospection=enabled
 )
+meson_options_build=("${meson_options_common[@]}")
+meson_options_host=("${meson_options_common[@]}")
 
-if [[ $(uname) == Darwin ]] ; then
+if [[ "$target_platform" == osx-* ]] ; then
     # Disable X11 since our default Mac environment doesn't provide it (and
     # apparently the build scripts assume that it will be there).
     #
     # Disable manpages since the macOS xsltproc doesn't want to load
     # docbook.xsl remotely in --nonet mode.
-    meson_options+=(-Dx11=false -Dman=false)
+    meson_options_host+=(-Dx11=false -Dman=false)
+fi
+
+if [[ "$build_platform" == osx-* ]] ; then
+    meson_options_build+=(-Dx11=false -Dman=false)
+fi
+
+
+
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
+  unset _CONDA_PYTHON_SYSCONFIGDATA_NAME
+  (
+    mkdir -p native-build
+    pushd native-build
+
+    export CC=$CC_FOR_BUILD
+    export AR=($CC_FOR_BUILD -print-prog-name=ar)
+    export NM=($CC_FOR_BUILD -print-prog-name=nm)
+    export LDFLAGS=${LDFLAGS//$PREFIX/$BUILD_PREFIX}
+    export PKG_CONFIG_PATH=${BUILD_PREFIX}/lib/pkgconfig
+
+    # Unset them as we're ok with builds that are either slow or non-portable
+    unset CFLAGS
+    unset CPPFLAGS
+
+    meson "${meson_options_build[@]}" --prefix=$BUILD_PREFIX ..
+    # This script would generate the functions.txt and dump.xml and save them
+    # This is loaded in the native build. We assume that the functions exported
+    # by glib are the same for the native and cross builds
+    export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-save.sh
+    ninja -j$CPU_COUNT -v
+    ninja install
+    popd
+  )
+  export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
 fi
 
 mkdir forgebuild
 cd forgebuild
 
-# This bit essentially copy/pasted from glib-feedstock:
-if [[ "$target_platform" == "osx-arm64" && "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
-    echo "[host_machine]" > cross_file.txt
-    echo "system = 'darwin'" >> cross_file.txt
-    echo "cpu_family = 'aarch64'" >> cross_file.txt
-    echo "cpu = 'arm64'" >> cross_file.txt
-    echo "endian = 'little'" >> cross_file.txt
-    meson_options+=(--cross-file cross_file.txt)
-    export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
+export PKG_CONFIG="$BUILD_PREFIX/bin/pkg-config"
+export PKG_CONFIG_PATH_FOR_BUILD="$BUILD_PREFIX/lib/pkgconfig"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig"
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != 1 ]]; then
+  export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig"
 fi
 
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$PREFIX/lib/pkgconfig:$BUILD_PREFIX/lib/pkgconfig
-
-meson "${meson_options[@]}" ..
+meson "${meson_options_host[@]}" $MESON_ARGS --prefix=$PREFIX .. || (cat meson-logs/meson-log.txt; false)
 ninja -j$CPU_COUNT -v
 ninja install
 

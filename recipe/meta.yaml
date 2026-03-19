@@ -11,7 +11,7 @@ source:
     url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
@@ -24,6 +24,11 @@ requirements:
     - meson
     - ninja
     - gobject-introspection
+    - glib      # [build_platform != target_platform]
+    - jpeg      # [build_platform != target_platform]
+    - libtiff   # [build_platform != target_platform]
+    - libpng    # [build_platform != target_platform]
+    - zlib      # [build_platform != target_platform]
   host:
     - glib
     - jpeg
