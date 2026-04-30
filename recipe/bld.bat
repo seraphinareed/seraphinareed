@@ -21,11 +21,11 @@ set ^"MESON_OPTIONS=^
  ^"
 
 :: configure build using meson
-%BUILD_PREFIX%\python.exe %BUILD_PREFIX%\Scripts\meson setup builddir !MESON_OPTIONS!
+%BUILD_PREFIX%\Scripts\meson.exe setup builddir !MESON_OPTIONS!
 if errorlevel 1 exit 1
 
 :: print results of build configuration
-%BUILD_PREFIX%\python.exe %BUILD_PREFIX%\Scripts\meson configure builddir
+%BUILD_PREFIX%\Scripts\meson.exe configure builddir
 if errorlevel 1 exit 1
 
 ninja -v -C builddir -j %CPU_COUNT%
