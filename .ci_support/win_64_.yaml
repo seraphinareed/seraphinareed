@@ -5,13 +5,13 @@ channel_sources:
 channel_targets:
 - conda-forge main
 glib:
-- '2.66'
+- '2'
 jpeg:
 - '9'
 libpng:
 - '1.6'
 libtiff:
-- 4.1.0
+- '4'
 pin_run_as_build:
   jpeg:
     max_pin: x
