@@ -22,6 +22,7 @@ requirements:
     - pkg-config
     - {{ compiler('c') }}
     - meson
+    - meson ==0.56.2  # [osx and arm64]
     - ninja
     - gobject-introspection
     - glib      # [build_platform != target_platform]
