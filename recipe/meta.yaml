@@ -1,6 +1,6 @@
 {% set name = "gdk-pixbuf" %}
-{% set version = "2.42.4" %}
-{% set sha256 = "fe9c5dd88f486194ea2bc09b8814c1ed895bb6c530f37cbbf259757c4e482e4d" %}
+{% set version = "2.42.6" %}
+{% set sha256 = "c4a6b75b7ed8f58ca48da830b9fa00ed96d668d3ab4b1f723dcf902f78bde77f" %}
 
 package:
     name: {{ name|lower }}
@@ -11,7 +11,7 @@ source:
     url: http://ftp.gnome.org/pub/gnome/sources/{{ name }}/{{ '.'.join(version.split('.')[:2]) }}/{{ name }}-{{ version }}.tar.xz
 
 build:
-  number: 2
+  number: 0
   skip: true  # [win and vc<14]
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=gdk-pixbuf
