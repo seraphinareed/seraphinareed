@@ -5,7 +5,7 @@ Home: https://developer.gnome.org/gdk-pixbuf/
 
 Package license: LGPL-2.1-or-later
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gdk-pixbuf-feedstock/blob/master/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gdk-pixbuf-feedstock/blob/main/LICENSE.txt)
 
 Summary: GdkPixbuf is a library for image loading and manipulation.
 
@@ -13,22 +13,15 @@ Current build status
 ====================
 
 
-<table><tr>
-    <td>Drone</td>
-    <td>
-      <a href="https://cloud.drone.io/conda-forge/gdk-pixbuf-feedstock">
-        <img alt="linux" src="https://img.shields.io/drone/build/conda-forge/gdk-pixbuf-feedstock/master.svg?label=Linux">
-      </a>
-    </td>
-  </tr>
+<table>
     
   <tr>
     <td>Azure</td>
     <td>
       <details>
         <summary>
-          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=master">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=master">
+          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=main">
+            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=main">
           </a>
         </summary>
         <table>
@@ -36,43 +29,43 @@ Current build status
           <tbody><tr>
               <td>linux_64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=master&jobName=linux&configuration=linux_64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=main&jobName=linux&configuration=linux_64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=main&jobName=linux&configuration=linux_aarch64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=master&jobName=osx&configuration=osx_64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=main&jobName=osx&configuration=osx_64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>osx_arm64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=master&jobName=osx&configuration=osx_arm64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=main&jobName=osx&configuration=osx_arm64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64</td>
               <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=master&jobName=win&configuration=win_64_" alt="variant">
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=347&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/gdk-pixbuf-feedstock?branchName=main&jobName=win&configuration=win_64_" alt="variant">
                 </a>
               </td>
             </tr>
@@ -97,6 +90,7 @@ Installing `gdk-pixbuf` from the `conda-forge` channel can be achieved by adding
 
 ```
 conda config --add channels conda-forge
+conda config --set channel_priority strict
 ```
 
 Once the `conda-forge` channel has been enabled, `gdk-pixbuf` can be installed with:
@@ -115,7 +109,8 @@ conda search gdk-pixbuf --channel conda-forge
 About conda-forge
 =================
 
-[![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](http://numfocus.org)
+[![Powered by
+NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](https://numfocus.org)
 
 conda-forge is a community-led conda channel of installable packages.
 In order to provide high-quality builds, the process has been automated into the
