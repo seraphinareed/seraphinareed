@@ -9,7 +9,7 @@
 # available as `$PREFIX/bin/.gdk-pixbuf-post-link.sh`.
 
 set -e
-eval $(grep -v : "$PREFIX/lib/pkgconfig/gdk-pixbuf-2.0.pc")
+eval "$(grep -v : "$PREFIX/lib/pkgconfig/gdk-pixbuf-2.0.pc" | sed -E 's/=(.+)$/="\1"/')"
 if [ -z "$gdk_pixbuf_cache_file" ] ; then
     bindir="$(echo "${PREFIX}/lib/gdk-pixbuf-2.0/"*)"
     if [ ! -d "$bindir" ] ; then
